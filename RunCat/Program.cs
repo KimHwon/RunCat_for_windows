@@ -57,7 +57,7 @@ namespace RunCat
 
             SystemEvents.UserPreferenceChanged += new UserPreferenceChangedEventHandler(UserPreferenceChanged);
 
-            cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            cpuUsage = new PerformanceCounter("Processor Information", "% Processor Utility", "_Total");
             _ = cpuUsage.NextValue(); // discards first return value
 
             runnerMenu = new ToolStripMenuItem("Runner", null, new ToolStripMenuItem[]
@@ -254,7 +254,7 @@ namespace RunCat
 
         private void SetAnimation()
         {
-            animateTimer.Interval = 200;
+            animateTimer.Interval = 500;
             animateTimer.Tick += new EventHandler(AnimationTick);
         }
 
@@ -262,7 +262,7 @@ namespace RunCat
         {
             float s = cpuUsage.NextValue();
             notifyIcon.Text = $"{s:f1}%";
-            s = 200.0f / (float)Math.Max(1.0f, Math.Min(20.0f, s / 5.0f));
+            s = 500.0f / (float)Math.Max(1.0f, Math.Min(20.0f, s / 5.0f));
             animateTimer.Stop();
             animateTimer.Interval = (int)s;
             animateTimer.Start();
